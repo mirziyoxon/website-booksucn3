@@ -31,7 +31,7 @@
       height: 90vh; /* full screen height */
       border: none;
     }
-.container {
+    .container {
       max-width: 900px;
       margin: 30px auto;
       padding: 20px;
@@ -52,17 +52,54 @@ li {
     a:hover {
       color: #0073e6;
     }
+    /* Splash screen style */
+    #splash {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: bold;
+      z-index: 1000;
+    }
+
+    /* Main content hidden at first */
+    #content {
+      display: none;
+    }
+
+    .loader {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #333;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
   </style>
 </head>
 <body>
-
+<div id="splash">
+  <div class="loader"></div>
+</div>
 <header>
   <nav>
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
-<a href="books.html" class="active">Books</a>
-<a href="research.html">Research</a>
-<a href="scholar.html">Articles</a>
+    <a href="books.html" class="active">Books</a>
+    <a href="research.html">Research</a>
+    <a href="scholar.html">Articles</a>
     <a href="publish.html">Publish</a>
   </nav>
 </header>
@@ -71,14 +108,41 @@ li {
   <h1>All Books</h1>
   <div class="container">
     
-    <ul>
-      <li><a href="articles/dubai.pdf" target="_blank">Book 1: Introduction to Economics</a></li>
-      <li><a href="bookme/book2.pdf" target="_blank">Book 2: Small Habits, Big Change</a></li>
-      <li><a href="bookme/book3.pdf" target="_blank">Book 3: Future of Technology</a></li>
-      <li><a href="bookme/book4.pdf" target="_blank">Book 4: Creative Thinking</a></li>
-    </ul>
+    <ul id="bookList">
+      <li><a href="books/Atomic Habits -  unicorner.uz.pdf" target="_blank">Book 1: Atomic Habits - James Clear</a></li>
+      <li><a href="books/bell-alexander-graham - unicorner.uz.pdf" target="_blank">Book 2: Alexander Graham Bell - Harodl S. Osborne</a></li>
+      <li><a href="books/History Of English Literature (2000) - unicorner.uz.pdf" target="_blank">Book 3: History Of English Literature (2000) - Edward Albert</a></li>
+      <li><a href="books/Homes Odyssey - unicorner.uz.pdf" target="_blank">Book 4: Homes Odyssey - Ian Johnston</a></li>
+      <!-- Hidden books -->
+    <li class="extra-book" style="display:none;"><a href="kitob.html" target="_blank">Book 5: On Writing Well - William Zinsser</a></li>
+    <li class="extra-book" style="display:none;"><a href="bookme/book6.pdf" target="_blank">Book 6: Leadership Skills</a></li>
+    <li class="extra-book" style="display:none;"><a href="bookme/book7.pdf" target="_blank">Book 7: Business Growth</a></li>
+     </ul>
+    <button id="moreBtn" onclick="requestCode()">More Books</button>
   </div>
 </main>
 
+<script>
+  setTimeout(() => {
+  document.getElementById("splash").style.display = "none";
+  document.getElementById("content").style.display = "flex";
+}, 2000); //  2 seconds
+
+
+  function requestCode() {
+  const userCode = prompt("Enter access code to unlock more books:");
+  const correctCode = "2220"; // <-- Change this to your own code
+
+  if (userCode === correctCode) {
+    const hiddenBooks = document.querySelectorAll(".extra-book");
+    hiddenBooks.forEach(book => book.style.display = "list-item");
+    document.getElementById("moreBtn").style.display = "none"; // hide button after success
+  } else if (userCode !== null) {
+    alert("Incorrect code. Try again.");
+  }
+}
+</script>
+
 </body>
 </html>
+
